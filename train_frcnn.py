@@ -77,7 +77,7 @@ print('Num classes (including bg) = {}'.format(len(classes_count)))
 
 config_output_filename = options.config_filename
 
-with open(config_output_filename, 'w') as config_f:
+with open(config_output_filename, 'wb') as config_f:
 	pickle.dump(C,config_f)
 	print('Config has been written to {}, and can be loaded when testing to ensure correct results'.format(config_output_filename))
 
@@ -163,7 +163,7 @@ for epoch_num in range(num_epochs):
 				if mean_overlapping_bboxes == 0:
 					print('RPN is not producing bounding boxes that overlap the ground truth boxes. Check RPN settings or keep training.')
 
-			X, Y, img_data = data_gen_train.next()
+			X, Y, img_data = next(data_gen_train)
 
 			loss_rpn = model_rpn.train_on_batch(X, Y)
 
