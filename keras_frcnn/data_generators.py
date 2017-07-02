@@ -2,8 +2,8 @@ import numpy as np
 import cv2
 import random
 import copy
-import data_augment
-import roi_helpers
+from keras_frcnn import data_augment
+from keras_frcnn import roi_helpers
 import threading
 import itertools
 
@@ -288,8 +288,6 @@ def threadsafe_generator(f):
 
 def get_anchor_gt(all_img_data, class_count, C, backend, mode='train'):
 
-	all_img_data = sorted(all_img_data)
-
 	sample_selector = SampleSelector(class_count)
 
 	while True:
@@ -338,7 +336,7 @@ def get_anchor_gt(all_img_data, class_count, C, backend, mode='train'):
 				x_img = np.transpose(x_img, (2, 0, 1))
 				x_img = np.expand_dims(x_img, axis=0)
 
-				y_rpn_regr[:, y_rpn_regr.shape[1]/2:, :, :] *= C.std_scaling
+				y_rpn_regr[:, y_rpn_regr.shape[1]//2:, :, :] *= C.std_scaling
 
 				if backend == 'tf':
 					x_img = np.transpose(x_img, (0, 2, 3, 1))

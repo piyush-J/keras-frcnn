@@ -1,7 +1,7 @@
 import numpy as np
 import pdb
 import math
-import data_generators
+from keras_frcnn import data_generators
 import copy
 
 
